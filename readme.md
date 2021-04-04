@@ -13,11 +13,17 @@
 > An up-to-date list of [macOS `defaults` commands](https://macos-defaults.com) with demos. ✨
 
 ## Add a command
-All the listed `defaults` commands are stored in localized [defaults*.yml files](./defaults.yml). Here is how a command's info is designed:
+
+All the listed `defaults` commands are stored in localized [defaults*.yml files](./defaults.yml). Commands are grouped into one category per domain. Here is how a command's info is designed:
 
 ```yml
+categories:
+  - folder: app-name
+    domain: com.some-domain.app-name # The command's domain
+    name: App Name
+    description: Explain what this app is.
+    keys:
       - key: the-command-name-separated-with-dashes # The command's key
-        domain: com.some-domain.app-name # The command's domain
         title: My command
         description: Explaining what my command does.
         param:

@@ -14,6 +14,10 @@
             "description": "The slug for this category in the site's URL.",
             "type": "string"
           },
+          "domain": {
+            "description": "The domain for this section, typically corresponding to an individual application.",
+            "type": "string"
+          },
           "name": {
             "description": "The human readable name for this category.",
             "type": "string"
@@ -32,10 +36,6 @@
               "type": "object",
               "properties": {
                 "key": {
-                  "type": "string"
-                },
-                "domain": {
-                  "description": "The domain for this key, typically corresponding to an individual application.",
                   "type": "string"
                 },
                 "title": {
@@ -149,7 +149,6 @@
                 }
               },
               "required": [
-                "domain",
                 "examples",
                 "key",
                 "param",
@@ -161,6 +160,7 @@
           }
         },
         "required": [
+          "domain",
           "folder",
           "name",
           "description"

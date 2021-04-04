@@ -2,7 +2,93 @@
 
 categories:
 
+  - folder: global
+    domain: NSGlobalDomain
+    name: Globale
+    description: ""
+    keys:
+      - key: AppleShowAllExtensions
+        title: Afficher les extensions
+        description: Afficher toutes les extensions de fichier ou non.
+        param:
+          type: bool
+        examples:
+          - value: false
+            default: true
+            text: Ne pas afficher toutes les extensions dans le Finder
+          - value: true
+            text: Afficher toutes les extensions de fichier dans le Finder
+        versions: [Big Sur, Catalina, Mojave]
+        after: killall Finder
+      - key: NSDocumentSaveNewDocumentsToCloud
+        title: Sauvegarder sur le disque ou dans iCloud par défaut
+        description: Définir si l'emplacement de sauvegarde par défaut est sur le disque ou dans iCloud
+        param:
+          type: bool
+        examples:
+          - value: true
+            default: true
+            text: iCloud Documents est le dossier ouvert par défaut lors de la sauvegarde d'un nouveau document
+          - value: false
+            text: Le répertoire utilisateur est ouvert par défaut lors de la sauvegarde d'un nouveau document
+        versions: [Catalina]
+      - key: NSToolbarTitleViewRolloverDelay
+        title: Délai au survol du titre
+        description: Choisir le délai d'affichage du titre complet.
+        param:
+          type: float
+        examples:
+          - value: 0.5
+            default: true
+            video:
+              filename: "0.5.mp4"
+              width: 741
+              height: 416
+            text: Par défaut, le titre met 0.5 secondes à s'afficher
+          - value: 0
+            video:
+              filename: "0.mp4"
+              width: 741
+              height: 416
+            text: Supprimer le délai au survol du titre
+          - value: 1
+            video:
+              filename: "1.mp4"
+              width: 741
+              height: 416
+            text: Ajouter du délai au survol du titre
+        versions: [Big Sur]
+        after: killall Finder
+      - key: NSTableViewDefaultSizeMode
+        title: Taille des icônes de la barre latérale
+        description: Personnaliser la taille des icônes dans la barre latérale du Finder
+        param:
+          type: int
+        examples:
+          - value: 1
+            image:
+              filename: "1.png"
+              width: 740
+              height: 415
+            text: Petites
+          - value: 2
+            default: true
+            image:
+              filename: "2.png"
+              width: 740
+              height: 415
+            text: Moyennes
+          - value: 3
+            image:
+              filename: "3.png"
+              width: 740
+              height: 415
+            text: Grosses
+        versions: [Big Sur, Catalina]
+        after: killall Finder
+
   - folder: dock
+    domain: com.apple.dock
     name: Dock
     description: |
       Le Dock est une composante importante de macOS.
@@ -10,13 +96,20 @@ categories:
       Par défaut il est placé en bas de votre écran.
 
       Il est personnalisable à souhait.
+
+      Anciennement connu sous le nom d'Exposé, Mission Control permet :
+
+      - `⌃ ctrl`+`↑ haut` voir toutes les fenêtres d'applications ouvertes.
+      - `⌃ ctrl`+`↓ bas` voir toutes les fenêtres de l'application courante.
+      - `⌘ cmd`+`F3 Mission Control` cacher toutes les applications et afficher le bureau.
+      - `⌃ ctrl`+`← gauche`/`→ droite` se déplacer entre les bureaux virtuels.
+      - déplacer des applications entre plusieurs écrans.
     image:
       filename: "dock.png"
       width: 740
       height: 41
     keys:
       - key: orientation
-        domain: com.apple.dock
         title: Position
         description: Choisir la position du Dock
         param:
@@ -45,7 +138,6 @@ categories:
         versions: [Big Sur, Catalina, Mojave]
         after: killall Dock
       - key: tilesize
-        domain: com.apple.dock
         title: Taille des icônes
         description: Paramétrer le taille des icônes du Dock
         param:
@@ -67,7 +159,6 @@ categories:
         versions: [Big Sur, Catalina]
         after: killall Dock
       - key: autohide
-        domain: com.apple.dock
         title: Caché automatiquement
         description: Cacher le Dock automatiquement. Vous pouvez afficher/cacher le Dock avec `⌥ alt`+`⌘ cmd`+`d`.
         param:
@@ -81,7 +172,6 @@ categories:
         versions: [Big Sur, Catalina, Mojave]
         after: killall Dock
       - key: autohide-time-modifier
-        domain: com.apple.dock
         title: Durée de l'animation d'affichage
         description: Changer la durée d'animation d'affichage et de cachage du Dock.
         param:
@@ -114,7 +204,6 @@ categories:
             value: true
         after: killall Dock
       - key: autohide-delay
-        domain: com.apple.dock
         title: Délai avant affichage
         description: Change the Dock opening delay.
         param:
@@ -141,7 +230,6 @@ categories:
             value: true
         after: killall Dock
       - key: show-recents
-        domain: com.apple.dock
         title: Afficher les Apps récentes
         description: Afficher ou non les applications utilisées récemment dans une section à part.
         param:
@@ -163,7 +251,6 @@ categories:
         versions: [Big Sur, Catalina, Mojave]
         after: killall Dock
       - key: mineffect
-        domain: com.apple.dock
         title: Animation de minimisation
         description: Changer le style d'animation de minimisation des applications.
         param:
@@ -194,8 +281,38 @@ categories:
             name: com.apple.dock autohide
             value: true
         after: killall Dock
+      - key: mru-spaces
+        title: Réorganiser automatiquement
+        description: Réorganiser les bureaux virtuels automatiquement.
+        param:
+          type: bool
+        examples:
+          - value: true
+            default: true
+            text: Déplacer les bureaux virtuels les plus récemment utilisés
+          - value: false
+            text: Toujours conserver l'arrangement de bureaux virtuels
+        versions: [Big Sur, Catalina, Mojave]
+        after: killall Dock
+      - key: enable-spring-load-actions-on-all-items
+        title: Activer le spring loading dans le Dock
+        description:
+          Glisser un fichier au dessus d'une icône du Dock et l'application va s'ouvrir.
+          Ne permet de le faire que si l'application n'est pas déjà ouverte.
+          Nous avons réussi à le faire fonctionner sur Aperçu, QuickTime et iWork (Keynote, Pages, Numbers).
+        param:
+          type: bool
+        examples:
+          - value: false
+            default: true
+            text: Le spring loading est désactivé
+          - value: true
+            text: Le spring loading est activé
+        versions: [Big Sur, Catalina]
+        after: killall Dock
 
   - folder: screenshots
+    domain: com.apple.screencapture
     name: Capture d'écran
     description: |
       Sur un Mac, il est possible de prendre des captures d'écran avec:
@@ -207,7 +324,6 @@ categories:
       Il est possible de personnaliser quelques trucs.
     keys:
       - key: disable-shadow
-        domain: com.apple.screencapture
         title: Enlever l'ombre
         description:
           Afficher ou non une ombre en prenant une capture d'une app (`⌘ cmd`+`⇧ shift`+`4` puis `espace`).
@@ -229,7 +345,6 @@ categories:
             text: Supprimer l'ombre des captures
         versions: [Big Sur, Catalina]
       - key: include-date
-        domain: com.apple.screencapture
         title: Inclure la date
         description: Inclure la date et l'heure dans le nom du fichier.
         param:
@@ -244,7 +359,6 @@ categories:
               - Screenshot 1.png
         versions: [Big Sur, Catalina, Mojave]
       - key: location
-        domain: com.apple.screencapture
         title: Emplacement
         description: Préciser l'emplacement par défaut des captures.
         param:
@@ -256,7 +370,6 @@ categories:
         versions: [Big Sur, Catalina, Mojave]
         after: killall SystemUIServer
       - key: show-thumbnail
-        domain: com.apple.screencapture
         title: Afficher la vignette
         description: Afficher ou non la vignette après avoir fait une capture.
         param:
@@ -269,7 +382,6 @@ categories:
             text: Ne pas afficher la vignette
         versions: [Big Sur, Catalina]
       - key: type
-        domain: com.apple.screencapture
         title: Choisir le format de la capture
         description: Choisir le format de fichier de l'image dans lequel la capture est enregistrée.
         param:
@@ -283,6 +395,7 @@ categories:
         versions: [Big Sur, Catalina, Mojave]
 
   - folder: finder
+    domain: com.apple.finder
     name: Finder
     description: |
       Le Finder est le gestionnaire de fichier de macOS.
@@ -293,7 +406,6 @@ categories:
       Certaines de ses fonctionnalités sont personnalisables.
     keys:
       - key: QuitMenuItem
-        domain: com.apple.finder
         title: Quitter
         description: Afficher ou non l'option pour quitter le Finder.
         param:
@@ -306,22 +418,7 @@ categories:
             text: Afficher l'option "Quitter" du Finder
         versions: [Big Sur, Catalina, Mojave]
         after: killall Finder
-      - key: AppleShowAllExtensions
-        domain: NSGlobalDomain
-        title: Afficher les extensions
-        description: Afficher toutes les extensions de fichier ou non.
-        param:
-          type: bool
-        examples:
-          - value: false
-            default: true
-            text: Ne pas afficher toutes les extensions dans le Finder
-          - value: true
-            text: Afficher toutes les extensions de fichier dans le Finder
-        versions: [Big Sur, Catalina, Mojave]
-        after: killall Finder
       - key: AppleShowAllFiles
-        domain: com.apple.Finder
         title: Afficher les fichiers cachés
         description: Afficher les fichiers cachés dans le Finder.
         param:
@@ -343,7 +440,6 @@ categories:
         versions: [Big Sur, Catalina]
         after: killall Finder
       - key: FXEnableExtensionChangeWarning
-        domain: com.apple.finder
         title: Alerte au changement d'extension
         description: Choisir si il faut afficher une alerte au changement de format de fichier ou non.
         param:
@@ -364,87 +460,18 @@ categories:
             text: Ne pas afficher d'alerte au changement
         versions: [Big Sur, Catalina, Mojave]
         after: killall Finder
-      - key: NSDocumentSaveNewDocumentsToCloud
-        domain: NSGlobalDomain
-        title: Sauvegarder sur le disque ou dans iCloud par défaut
-        description: Définir si l'emplacement de sauvegarde par défaut est sur le disque ou dans iCloud
-        param:
-          type: bool
-        examples:
-          - value: true
-            default: true
-            text: iCloud Documents est le dossier ouvert par défaut lors de la sauvegarde d'un nouveau document
-          - value: false
-            text: Le répertoire utilisateur est ouvert par défaut lors de la sauvegarde d'un nouveau document
-        versions: [Catalina]
-      - key: NSToolbarTitleViewRolloverDelay
-        domain: NSGlobalDomain
-        title: Délai au survol du titre
-        description: Choisir le délai d'affichage du titre complet.
-        param:
-          type: float
-        examples:
-          - value: 0.5
-            default: true
-            video:
-              filename: "0.5.mp4"
-              width: 741
-              height: 416
-            text: Par défaut, le titre met 0.5 secondes à s'afficher
-          - value: 0
-            video:
-              filename: "0.mp4"
-              width: 741
-              height: 416
-            text: Supprimer le délai au survol du titre
-          - value: 1
-            video:
-              filename: "1.mp4"
-              width: 741
-              height: 416
-            text: Ajouter du délai au survol du titre
-        versions: [Big Sur]
-        after: killall Finder
-      - key: NSTableViewDefaultSizeMode
-        domain: NSGlobalDomain
-        title: Taille des icônes de la barre latérale
-        description: Personnaliser la taille des icônes dans la barre latérale du Finder
-        param:
-          type: int
-        examples:
-          - value: 1
-            image:
-              filename: "1.png"
-              width: 740
-              height: 415
-            text: Petites
-          - value: 2
-            default: true
-            image:
-              filename: "2.png"
-              width: 740
-              height: 415
-            text: Moyennes
-          - value: 3
-            image:
-              filename: "3.png"
-              width: 740
-              height: 415
-            text: Grosses
-        versions: [Big Sur, Catalina]
-        after: killall Finder
 
-  - folder: menubar
+  - folder: menu-clock
+    domain: com.apple.menuextra.clock
     name: Barre des menus
     description:
       La barre des menus est située en haut de l’écran.
       Utilisez les menus et les icônes de la barre des menus pour choisir des commandes, réaliser des tâches et vérifier un état.
     keys:
       - key: FlashDateSeparators
-        domain: com.apple.menuextra.clock
         title: Faire clignoter les séparateurs de l'horloge
-        description:
-          "Permet de faire clignoter ou non les séparateurs de l'horloge numérique (par défaut, ce sont des deux points)."
+        description: |
+          Permet de faire clignoter ou non les séparateurs de l'horloge numérique (par défaut, ce sont des deux points).
         param:
           type: bool
         examples:
@@ -464,7 +491,6 @@ categories:
         versions: [Big Sur, Catalina, Mojave]
         after: killall SystemUIServer
       - key: DateFormat
-        domain: com.apple.menuextra.clock
         title: Format de date et heure
         description: |
           Ce paramètre permet de préciser le format de date et heure de la barre de menus.
@@ -493,39 +519,13 @@ categories:
             text: 5 oct. à 21:58:33
         versions: [Big Sur, Catalina]
 
-  - folder: mission-control
-    name: Mission Control
-    description: |
-      Anciennement connu sous le nom d'Exposé, Mission Control permet :
-
-      - `⌃ ctrl`+`↑ haut` voir toutes les fenêtres d'applications ouvertes.
-      - `⌃ ctrl`+`↓ bas` voir toutes les fenêtres de l'application courante.
-      - `⌘ cmd`+`F3 Mission Control` cacher toutes les applications et afficher le bureau.
-      - `⌃ ctrl`+`← gauche`/`→ droite` se déplacer entre les bureaux virtuels.
-      - déplacer des applications entre plusieurs écrans.
-    keys:
-      - key: mru-spaces
-        domain: com.apple.dock
-        title: Réorganiser automatiquement
-        description: Réorganiser les bureaux virtuels automatiquement.
-        param:
-          type: bool
-        examples:
-          - value: true
-            default: true
-            text: Déplacer les bureaux virtuels les plus récemment utilisés
-          - value: false
-            text: Toujours conserver l'arrangement de bureaux virtuels
-        versions: [Big Sur, Catalina, Mojave]
-        after: killall Dock
-
   - folder: feedback-assistant
+    domain: com.apple.appleseed.FeedbackAssistant
     name: Assistant d'évaluation
     description:
       L'application "Assistant d'évaluation" permet d'envoyer des comptes rendus développeur.
     keys:
       - key: Autogather
-        domain: com.apple.appleseed.FeedbackAssistant
         title: Collecte automatique
         description: |
           Collecter automatiquement des larges fichiers lors de la soumission de compte rendu.
@@ -543,11 +543,11 @@ categories:
 
   - folder: xcode
     name: Xcode
+    domain: com.apple.dt.Xcode
     description:
       Xcode est un environnement de développement pour macOS, ainsi que pour iOS, watchOS et tvOS.
     keys:
       - key: IDEAdditionalCounterpartSuffixes
-        domain: com.apple.dt.Xcode
         title: Ajouter des suffixes dans les Counterparts
         description:
           Ajouter des suffixes supplémentaires que Xcode place dans le menu "Related Items > Counterparts".
@@ -568,7 +568,6 @@ categories:
         versions: [Catalina]
         after: killall Xcode
       - key: ShowBuildOperationDuration
-        domain: com.apple.dt.Xcode
         title: Afficher la durée de build
         description:
           Afficher la durée de build dans la toolbar en haut de la fenêtre d'Xcode
@@ -584,13 +583,13 @@ categories:
         after: killall Xcode
 
   - folder: simulator
+    domain: com.apple.iphonesimulator
     name: Simulateur
     description:
       Installé avec les outils d'Xcode, le Simulateur est une application Mac pour simuler
       un iPhone, un Ipad, une Apple Watch ou une Apple TV.
     keys:
       - key: ScreenShotSaveLocation
-        domain: com.apple.iphonesimulator
         title: Emplacement des screenshots
         description: |
           Préciser le chemin par défaut des screenshots du Simulateur.
@@ -605,12 +604,12 @@ categories:
         versions: [Catalina]
 
   - folder: textedit
+    domain: com.apple.TextEdit
     name: TextEdit
     description:
       TextEdit permet d'ouvrir et de modifier des documents de texte enrichi (rich text), texte brut (plain text) et HTML.
     keys:
       - key: RichText
-        domain: com.apple.TextEdit
         title: Définir le format de document par défaut
         description:
           Définir le format de document par défaut comme texte enrichi (.rtf) ou texte brut (.txt).
@@ -634,12 +633,12 @@ categories:
         after: killall TextEdit
 
   - folder: timemachine
+    domain: com.apple.TimeMachine
     name: Time Machine
     description:
       Time Machine permet de sauvegarder l'état de son système au cours du temps.
     keys:
       - key: DoNotOfferNewDisksForBackup
-        domain: com.apple.TimeMachine
         title: Eviter les nouveaux disques
         description:
           Ne pas proposer les périphériques de stockage nouvellement branchés en tant que disque de sauvegarde
@@ -656,42 +655,12 @@ categories:
               Ne pas proposer les nouveaux périphériques de stockage connectés comme disque de sauvegarde
         versions: [Catalina]
 
-  - folder: misc
-    name: Divers
-    description: Tous les `defaults` qui n'ont pas leur place ailleurs.
+  - folder: music
+    domain: com.apple.Music
+    name: Musique
+    description: ""
     keys:
-      - key: DevMode
-        domain: com.apple.helpviewer
-        title: Position du menu d'Aide
-        description: Choisir si le menu d'Aide doit être au-dessus de toutes les applications.
-        param:
-          type: bool
-        examples:
-          - value: false
-            default: true
-            text: Par défaut, le menu d'Aide est au-dessus de n'importe quel fenêtre
-          - value: true
-            text: Laisser le menu d'Aide passer derrière les autres fenêtres
-        versions: [Big Sur, Catalina, Mojave]
-      - key: enable-spring-load-actions-on-all-items
-        domain: com.apple.dock
-        title: Activer le spring loading dans le Dock
-        description:
-          Glisser un fichier au dessus d'une icône du Dock et l'application va s'ouvrir.
-          Ne permet de le faire que si l'application n'est pas déjà ouverte.
-          Nous avons réussi à le faire fonctionner sur Aperçu, QuickTime et iWork (Keynote, Pages, Numbers).
-        param:
-          type: bool
-        examples:
-          - value: false
-            default: true
-            text: Le spring loading est désactivé
-          - value: true
-            text: Le spring loading est activé
-        versions: [Big Sur, Catalina]
-        after: killall Dock
       - key: userWantsPlaybackNotifications
-        domain: com.apple.Music
         title: Afficher les notifications de Musique
         description:
           Afficher une notification lorsqu'une nouvelle chanson commence dans
@@ -706,3 +675,21 @@ categories:
             text: L'affichage des notifications est activé.
         versions: [Catalina]
         after: killall Music
+
+  - folder: help-viewer
+    domain: com.apple.helpviewer
+    name: Menu d'Aide
+    description: ""
+    keys:
+      - key: DevMode
+        title: Position du menu d'Aide
+        description: Choisir si le menu d'Aide doit être au-dessus de toutes les applications.
+        param:
+          type: bool
+        examples:
+          - value: false
+            default: true
+            text: Par défaut, le menu d'Aide est au-dessus de n'importe quel fenêtre
+          - value: true
+            text: Laisser le menu d'Aide passer derrière les autres fenêtres
+        versions: [Big Sur, Catalina, Mojave]
